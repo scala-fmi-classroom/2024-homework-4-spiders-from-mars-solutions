@@ -29,4 +29,4 @@ class GenericAsyncHttpClient extends GenericHttpClient:
     .recoverWith:
       case e: ExecutionException => Failure(e.getCause)
 
-  def shutdown(): Unit = client.close()
+  def shutdown[F[_] : Concurrent](): F[Unit] = Concurrent[F].delay(client.close())
