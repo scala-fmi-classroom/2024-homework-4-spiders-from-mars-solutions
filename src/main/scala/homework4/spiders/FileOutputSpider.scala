@@ -1,12 +1,13 @@
 package homework4.spiders
 
+import homework4.generic.processors.GenericFileOutput
 import homework4.math.Monoid
 import homework4.processors.{FileOutput, SavedFiles}
 
 class FileOutputSpider(targetDir: String) extends ProcessingSpider:
   type Output = SavedFiles
 
-  def processor = new FileOutput(targetDir)
+  def processor = new GenericFileOutput(targetDir)
 
   def monoid: Monoid[SavedFiles] = summon
 

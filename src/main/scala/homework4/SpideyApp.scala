@@ -1,6 +1,7 @@
 package homework4
 
 import cats.effect.{ExitCode, IO, IOApp}
+import homework4.generic.{GenericAsyncHttpClient, GenericSpidey}
 import homework4.http.AsyncHttpClient
 import homework4.spiders.{BrokenLinkDetectorSpider, FileOutputSpider, ProcessingSpider, WordCounterSpider}
 
@@ -52,8 +53,8 @@ object SpideyApp extends IOApp:
       case _ => None
 
   def runSpider(url: String, maxDepth: Int, spider: ProcessingSpider): IO[String] =
-    val httpClient = new AsyncHttpClient
-    val spidey = new Spidey(httpClient)
+    val httpClient = new GenericAsyncHttpClient
+    val spidey = new GenericSpidey[IO](httpClient)
 
     spider
       .process(spidey, url, maxDepth)(defaultConfig)

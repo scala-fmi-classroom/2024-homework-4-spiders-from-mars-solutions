@@ -4,7 +4,7 @@ import cats.effect.IO
 import homework4.Processor
 import homework4.http.HttpResponse
 
-import cats.syntax.all.*
-
 object BrokenLinkDetector extends Processor[Set[String]]:
-  def apply(url: String, response: HttpResponse): IO[Set[String]] = ???
+  def apply(url: String, response: HttpResponse): IO[Set[String]] = IO.pure:
+    if response.isSuccess then Set(url)
+    else Set.empty
